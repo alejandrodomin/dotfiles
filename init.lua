@@ -29,6 +29,12 @@ require'nvim-treesitter.configs'.setup {
 -- Theme
 vim.cmd.colorscheme "catppuccin-macchiato"
 
+-- File search
+require('telescope').setup()
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader><leader>', builtin.find_files, { desc = 'Telescope find files' })
+vim.keymap.set('n', '<leader>/', builtin.live_grep, { desc = 'Telescope live grep' })
+
 -- Fill out terminal
 -- source: https://github.com/neovim/neovim/issues/16572
 vim.api.nvim_create_autocmd({'UIEnter', 'ColorScheme'}, {
