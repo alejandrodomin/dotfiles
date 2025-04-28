@@ -23,6 +23,9 @@ require'nvim-treesitter.configs'.setup {
   	},
 }
 
+-- Theme
+vim.cmd.colorscheme "catppuccin-macchiato"
+
 -- Fill out terminal
 -- source: https://github.com/neovim/neovim/issues/16572
 vim.api.nvim_create_autocmd({'UIEnter', 'ColorScheme'}, {
