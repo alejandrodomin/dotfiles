@@ -4,6 +4,9 @@ require("config.lazy")
 -- Language Server Setup
 require("mason").setup()
 require("mason-lspconfig").setup()
+require("trouble").setup()
+-- inlay hints
+vim.diagnostic.config { virtual_text = true }
 
 -- After setting up mason-lspconfig you may set up servers via lspconfig
 -- require("lspconfig").lua_ls.setup {}
