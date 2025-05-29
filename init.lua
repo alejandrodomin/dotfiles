@@ -31,11 +31,6 @@ vim.cmd.colorscheme "catppuccin-macchiato"
 vim.opt.number = true
 vim.opt.relativenumber = true
 
-require("no-neck-pain").setup { 
-	width = 120,
-	autocmds = { enableOnVimEnter = true }, 
-}
-
 -- File search
 require('telescope').setup()
 local builtin = require('telescope.builtin')
