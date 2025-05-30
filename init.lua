@@ -27,7 +27,7 @@ require'nvim-treesitter.configs'.setup {
 }
 
 -- Theme
-vim.cmd.colorscheme "koehler"
+vim.cmd.colorscheme "catppuccin-macchiato"
 vim.opt.number = true
 vim.opt.relativenumber = true
 
