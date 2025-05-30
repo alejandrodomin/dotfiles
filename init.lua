@@ -6,68 +6,100 @@ require("mason").setup()
 require("mason-lspconfig").setup()
 require("trouble").setup()
 -- inlay hints
-vim.diagnostic.config { virtual_text = true }
+vim.diagnostic.config({ virtual_text = true })
 
 -- After setting up mason-lspconfig you may set up servers via lspconfig
 -- require("lspconfig").lua_ls.setup {}
 -- require("lspconfig").rust_analyzer.setup {}
-require("lspconfig").pyright.setup {}
+require("lspconfig").pyright.setup({})
 
 -- Syntax
-require'nvim-treesitter.configs'.setup {
+require("nvim-treesitter.configs").setup({
 	auto_install = true,
 	highlight = {
 		enable = true,
 		-- Setting this to true will run `:h syntax` and tree-sitter at the same time.
 		-- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-	    	-- Using this option may slow down your editor, and you may see some duplicate highlights.
-	    	-- Instead of true it can also be a list of languages
-	    	additional_vim_regex_highlighting = false,
-  	},
-}
+		-- Using this option may slow down your editor, and you may see some duplicate highlights.
+		-- Instead of true it can also be a list of languages
+		additional_vim_regex_highlighting = false,
+	},
+})
+
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
 
 -- Theme
-vim.cmd.colorscheme "catppuccin-mocha"
+vim.cmd.colorscheme("catppuccin-mocha")
 vim.opt.number = true
 vim.opt.relativenumber = true
 
-require("no-neck-pain").setup { 
+require("no-neck-pain").setup({
 	width = 120,
-	autocmds = { enableOnVimEnter = true }, 
-}
+	autocmds = { enableOnVimEnter = true },
+})
 
 -- File search
-require('telescope').setup()
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader><leader>', builtin.find_files, { desc = 'Telescope find files' })
-vim.keymap.set('n', '<leader>/', builtin.live_grep, { desc = 'Telescope live grep' })
+require("telescope").setup()
+local builtin = require("telescope.builtin")
+vim.keymap.set("n", "<leader><leader>", builtin.find_files, { desc = "Telescope find files" })
+vim.keymap.set("n", "<leader>/", builtin.live_grep, { desc = "Telescope live grep" })
 
 -- Fill out terminal
 -- source: https://github.com/neovim/neovim/issues/16572
-vim.api.nvim_create_autocmd({'UIEnter', 'ColorScheme'}, {
-    callback = function()
-        local normal = vim.api.nvim_get_hl(0, { name = 'Normal' })
-        if normal.bg then
-            io.write(string.format('\027]11;#%06x\027\\', normal.bg))
-        end
-    end,
+vim.api.nvim_create_autocmd({ "UIEnter", "ColorScheme" }, {
+	callback = function()
+		local normal = vim.api.nvim_get_hl(0, { name = "Normal" })
+		if normal.bg then
+			io.write(string.format("\027]11;#%06x\027\\", normal.bg))
+		end
+	end,
 })
 
-vim.api.nvim_create_autocmd('UILeave', {
-    callback = function()
-        io.write('\027]111\027\\')
-    end,
+vim.api.nvim_create_autocmd("UILeave", {
+	callback = function()
+		io.write("\027]111\027\\")
+	end,
 })
 
 -- UI tabs for the buffers
 vim.opt.termguicolors = true
-require("bufferline").setup{
-  options = {
-    numbers = function(opts)
-	    return string.format('%s|%s', opts.id, opts.raise(opts.ordinal))
-    end,
-  },
-}
+require("bufferline").setup({
+	options = {
+		numbers = function(opts)
+			return string.format("%s|%s", opts.id, opts.raise(opts.ordinal))
+		end,
+	},
+})
 
 -- Quality of Life QoL
-require('mini.pairs').setup()
+require("mini.pairs").setup()
+
+require("conform").setup({
+	format_on_save = function(bufnr)
+		-- Disable with a global or buffer-local variable
+		if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+			return
+		end
+		return { timeout_ms = 500, lsp_format = "fallback" }
+	end,
+})
+
+vim.api.nvim_create_user_command("FormatDisable", function(args)
+	if args.bang then
+		-- FormatDisable! will disable formatting just for this buffer
+		vim.b.disable_autoformat = true
+	else
+		vim.g.disable_autoformat = true
+	end
+end, {
+	desc = "Disable autoformat-on-save",
+	bang = true,
+})
+vim.api.nvim_create_user_command("FormatEnable", function()
+	vim.b.disable_autoformat = false
+	vim.g.disable_autoformat = false
+end, {
+	desc = "Re-enable autoformat-on-save",
+})
