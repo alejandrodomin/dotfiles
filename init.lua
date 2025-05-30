@@ -68,3 +68,6 @@ require("bufferline").setup{
     end,
   },
 }
+
+-- Quality of Life QoL
+require('mini.pairs').setup()
