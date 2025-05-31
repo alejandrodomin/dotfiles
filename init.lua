@@ -11,7 +11,7 @@ vim.diagnostic.config({ virtual_text = true })
 -- After setting up mason-lspconfig you may set up servers via lspconfig
 -- require("lspconfig").lua_ls.setup {}
 -- require("lspconfig").rust_analyzer.setup {}
-require("lspconfig").pyright.setup({})
+-- require("lspconfig").pyright.setup({})
 
 -- Syntax
 require("nvim-treesitter.configs").setup({
@@ -32,7 +32,7 @@ vim.opt.shiftwidth = 4
 
 -- Theme
 if vim.env.DISPLAY == nil or vim.env.DISPLAY == "" then
-	vim.cmd.colorscheme("koehler")
+	vim.cmd.colorscheme("torte")
 else
 	vim.cmd.colorscheme("catppuccin-mocha")
 end
