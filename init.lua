@@ -31,7 +31,11 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 
 -- Theme
-vim.cmd.colorscheme("catppuccin-mocha")
+if vim.env.DISPLAY == nil or vim.env.DISPLAY == "" then
+	vim.cmd.colorscheme("koehler")
+else
+	vim.cmd.colorscheme("catppuccin-mocha")
+end
 vim.opt.number = true
 vim.opt.relativenumber = true
 
