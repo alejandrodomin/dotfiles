@@ -32,7 +32,7 @@ vim.opt.shiftwidth = 4
 
 -- Theme
 if vim.env.DISPLAY == nil or vim.env.DISPLAY == "" then
-	vim.cmd.colorscheme("torte")
+	vim.cmd.colorscheme("elflord")
 else
 	vim.cmd.colorscheme("catppuccin-mocha")
 end
