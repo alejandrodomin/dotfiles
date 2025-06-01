@@ -31,7 +31,9 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 
 -- Theme
-if vim.env.DISPLAY == nil or vim.env.DISPLAY == "" then
+if vim.env.TERM == "tmux-256color" then
+	vim.cmd.colorscheme("catppuccin-mocha")
+elseif vim.env.DISPLAY == nil or vim.env.DISPLAY == "" then
 	vim.cmd.colorscheme("elflord")
 else
 	vim.cmd.colorscheme("catppuccin-mocha")
