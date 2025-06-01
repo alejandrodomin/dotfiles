@@ -32,7 +32,7 @@ vim.opt.shiftwidth = 4
 
 -- Theme
 if vim.env.TERM == "tmux-256color" then
-	vim.cmd.colorscheme("catppuccin-mocha")
+	vim.cmd.colorscheme("github_dark_dimmed")
 elseif vim.env.DISPLAY == nil or vim.env.DISPLAY == "" then
 	vim.cmd.colorscheme("elflord")
 else
