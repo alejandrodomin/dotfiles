@@ -43,7 +43,13 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 
 -- Theme
-vim.cmd.colorscheme("catppuccin-mocha")
+if vim.env.TERM == "tmux-256color" then
+	vim.cmd.colorscheme("github_dark_dimmed")
+elseif vim.env.DISPLAY == nil or vim.env.DISPLAY == "" then
+	vim.cmd.colorscheme("elflord")
+else
+	vim.cmd.colorscheme("catppuccin-mocha")
+end
 vim.opt.number = true
 vim.opt.relativenumber = true
 

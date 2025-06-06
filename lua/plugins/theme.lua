@@ -1,4 +1,5 @@
 return {
+	{ "projekt0n/github-nvim-theme", name = "github-theme" },
 	{
 		"catppuccin/nvim",
 		lazy = true,
@@ -56,4 +57,14 @@ return {
 		},
 	},
 	{ "shortcuts/no-neck-pain.nvim" },
+	{ 
+		"zaldih/themery.nvim",
+		lazy = false,
+		config = function()
+			require("themery").setup({
+				themes = {"catppuccin-mocha", "github_dark_dimmed", "elflord"},
+				livePreview = true,
+			})
+		end
+	}
 }
