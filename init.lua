@@ -9,9 +9,21 @@ require("trouble").setup()
 vim.diagnostic.config({ virtual_text = true })
 
 -- After setting up mason-lspconfig you may set up servers via lspconfig
+require("nvim-lsp-installer").setup({
+	automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
+	ui = {
+		icons = {
+			server_installed = "✓",
+			server_pending = "➜",
+			server_uninstalled = "✗",
+		},
+	},
+})
 -- require("lspconfig").lua_ls.setup {}
 -- require("lspconfig").rust_analyzer.setup {}
 require("lspconfig").pyright.setup({})
+-- Load the LSP.
+require("lspconfig").mojo.setup({})
 
 -- Syntax
 require("nvim-treesitter.configs").setup({
