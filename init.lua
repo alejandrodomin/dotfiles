@@ -38,9 +38,11 @@ require("nvim-treesitter.configs").setup({
 	},
 })
 
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
+vim.opt.tabstop = 4 -- Number of spaces that a <Tab> in the file counts for
+vim.opt.softtabstop = 4 -- Number of spaces a <Tab> feels like when editing
+vim.opt.shiftwidth = 4 -- Number of spaces used for each step of (auto)indent
+vim.opt.expandtab = true -- Use spaces instead of actual tab characters
+vim.opt.smartindent = true -- Auto-indent new lines
 
 -- Theme
 if vim.env.TERM == "tmux-256color" then
