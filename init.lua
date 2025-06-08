@@ -1,6 +1,9 @@
 -- package manager
 require("config.lazy")
 
+-- requrie custom configs
+require("config.key-mappings")
+
 -- Language Server Setup
 require("mason").setup()
 require("mason-lspconfig").setup()
