@@ -5,6 +5,7 @@ return {
 		lazy = true,
 		name = "catppuccin",
 		opts = {
+			transparent_background = true,
 			integrations = {
 				aerial = true,
 				alpha = true,
@@ -57,14 +58,14 @@ return {
 		},
 	},
 	{ "shortcuts/no-neck-pain.nvim" },
-	{ 
+	{
 		"zaldih/themery.nvim",
 		lazy = false,
 		config = function()
 			require("themery").setup({
-				themes = {"catppuccin-mocha", "github_dark_dimmed", "elflord"},
+				themes = { "catppuccin-mocha", "github_dark_dimmed", "elflord" },
 				livePreview = true,
 			})
-		end
-	}
+		end,
+	},
 }
