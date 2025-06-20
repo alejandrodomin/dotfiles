@@ -6,13 +6,7 @@ require("config.key-mappings")
 
 -- Language Server Setup
 require("mason").setup()
-require("mason-lspconfig").setup()
-require("trouble").setup()
--- inlay hints
-vim.diagnostic.config({ virtual_text = true })
-
--- After setting up mason-lspconfig you may set up servers via lspconfig
-require("nvim-lsp-installer").setup({
+require("mason-lspconfig").setup({
 	automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
 	ui = {
 		icons = {
@@ -22,6 +16,11 @@ require("nvim-lsp-installer").setup({
 		},
 	},
 })
+require("trouble").setup()
+-- inlay hints
+vim.diagnostic.config({ virtual_text = true })
+
+-- After setting up mason-lspconfig you may set up servers via lspconfig
 -- require("lspconfig").lua_ls.setup {}
 -- require("lspconfig").rust_analyzer.setup {}
 require("lspconfig").pyright.setup({})
@@ -48,13 +47,12 @@ vim.opt.expandtab = true -- Use spaces instead of actual tab characters
 vim.opt.smartindent = true -- Auto-indent new lines
 
 -- Theme
-if vim.env.TERM == "tmux-256color" then
-	vim.cmd.colorscheme("github_dark_dimmed")
-elseif vim.env.DISPLAY == nil or vim.env.DISPLAY == "" then
+if vim.env.DISPLAY == nil or vim.env.DISPLAY == "" then
 	vim.cmd.colorscheme("elflord")
 else
-	vim.cmd.colorscheme("catppuccin-mocha")
+	vim.cmd.colorscheme("moonfly")
 end
+
 vim.opt.number = true
 vim.opt.relativenumber = true
 

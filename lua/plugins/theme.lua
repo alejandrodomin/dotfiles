@@ -1,5 +1,6 @@
 return {
 	{ "projekt0n/github-nvim-theme", name = "github-theme" },
+	{ "bluz71/vim-moonfly-colors", name = "moonfly", lazy = false, priority = 1000 },
 	{
 		"catppuccin/nvim",
 		lazy = true,
@@ -63,7 +64,7 @@ return {
 		lazy = false,
 		config = function()
 			require("themery").setup({
-				themes = { "catppuccin-mocha", "github_dark_dimmed", "elflord" },
+				themes = { "catppuccin-mocha", "github_dark_dimmed", "elflord", "moonfly" },
 				livePreview = true,
 			})
 		end,
