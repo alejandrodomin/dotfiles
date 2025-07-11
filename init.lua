@@ -55,7 +55,7 @@ vim.opt.smartindent = true -- Auto-indent new lines
 if vim.env.DISPLAY == nil or vim.env.DISPLAY == "" then
 	vim.cmd.colorscheme("elflord")
 else
-	vim.cmd.colorscheme("catppuccin-mocha")
+	vim.cmd.colorscheme("catppuccin")
 end
 
 vim.opt.number = true

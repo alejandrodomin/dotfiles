@@ -138,4 +138,78 @@ return {
 			vim.g.qs_highlight_on_keys = { "f", "F", "t", "T" }
 		end,
 	},
+	{
+		"nvimdev/dashboard-nvim",
+		event = "VimEnter",
+		config = function()
+			local uv = vim.loop
+			local project_dir = vim.fn.expand("~/Documents/Workspace/")
+			local max_projects = 5
+
+			local function get_mtime(path)
+				local stat = uv.fs_stat(path)
+				return stat and stat.mtime.sec or 0
+			end
+
+			local projects = {}
+
+			-- Scan all folders under project_dir
+			for name, type in vim.fs.dir(project_dir) do
+				if type == "directory" then
+					local full_path = project_dir .. "/" .. name
+					local mtime = get_mtime(full_path)
+					table.insert(projects, { name = name, path = full_path, mtime = mtime })
+				end
+			end
+
+			-- Sort by modified time, descending
+			table.sort(projects, function(a, b)
+				return a.mtime > b.mtime
+			end)
+
+			-- Keep only top 5
+			local entries = {}
+			for i = 1, math.min(max_projects, #projects) do
+				local project = projects[i]
+				table.insert(entries, {
+					icon = "  ",
+					desc = project.name,
+					action = "cd " .. project.path .. " | Telescope find_files",
+					key = tostring(i),
+				})
+			end
+
+			-- static binding of config project
+			config_proj = { name = ".config/nvim", path = "~/.config/nvim/" }
+			table.insert(entries, {
+				icon = "  ",
+				desc = config_proj.name,
+				action = "cd " .. config_proj.path .. " | Telescope find_files",
+				key = "6",
+			})
+
+			-- Setup dashboard
+			require("dashboard").setup({
+				theme = "doom",
+				config = {
+					header = {
+						"██╗ ██████╗    ██╗  ██╗ ██████╗    ███╗   ██╗██╗██╗  ██╗ █████╗ ",
+						"██║██╔════╝    ╚██╗██╔╝██╔════╝    ████╗  ██║██║██║ ██╔╝██╔══██╗",
+						"██║██║          ╚███╔╝ ██║         ██╔██╗ ██║██║█████╔╝ ███████║",
+						"██║██║          ██╔██╗ ██║         ██║╚██╗██║██║██╔═██╗ ██╔══██║",
+						"██║╚██████╗    ██╔╝ ██╗╚██████╗    ██║ ╚████║██║██║  ██╗██║  ██║",
+						"╚═╝ ╚═════╝    ╚═╝  ╚═╝ ╚═════╝    ╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝╚═╝  ╚═╝",
+						"                                                                ",
+					},
+					center = entries,
+					footer = function()
+						return {
+							"☧ In Hoc Signo Vinces",
+						}
+					end,
+				},
+			})
+		end,
+		dependencies = { { "nvim-tree/nvim-web-devicons" } },
+	},
 }
