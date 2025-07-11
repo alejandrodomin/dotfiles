@@ -4,6 +4,11 @@ require("config.lazy")
 -- requrie custom configs
 require("config.key-mappings")
 
+-- require neovide configs if it exists
+if vim.g.neovide then
+	require("config.neovide")
+end
+
 -- Language Server Setup
 require("mason").setup()
 require("mason-lspconfig").setup({
@@ -50,7 +55,7 @@ vim.opt.smartindent = true -- Auto-indent new lines
 if vim.env.DISPLAY == nil or vim.env.DISPLAY == "" then
 	vim.cmd.colorscheme("elflord")
 else
-	vim.cmd.colorscheme("moonfly")
+	vim.cmd.colorscheme("catppuccin-mocha")
 end
 
 vim.opt.number = true
