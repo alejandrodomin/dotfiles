@@ -30,7 +30,9 @@ vim.diagnostic.config({ virtual_text = true })
 -- require("lspconfig").rust_analyzer.setup {}
 require("lspconfig").pyright.setup({})
 -- Load the LSP.
-require("lspconfig").mojo.setup({})
+require("lspconfig").mojo.setup({
+	cmd = { "bash", "-c", "pixi run mojo-lsp-server" },
+})
 
 -- Syntax
 require("nvim-treesitter.configs").setup({
