@@ -70,29 +70,6 @@ return {
 				reloadOnColorSchemeChange = false,
 				skipEnteringNoNeckPainBuffer = false,
 			},
-			mappings = {
-				enabled = true,
-				toggle = "<Leader>np",
-				toggleLeftSide = "<Leader>nql",
-				toggleRightSide = "<Leader>nqr",
-				widthUp = "<Leader>n=",
-				widthDown = "<Leader>n-",
-				scratchPad = "<Leader>ns",
-			},
-			buffers = {
-				setNames = false,
-				scratchPad = {
-					enabled = false,
-					fileName = "no-neck-pain",
-					location = nil,
-					pathToFile = nil,
-				},
-				colors = {
-					background = nil, -- auto-detects your theme
-					blend = 0,
-					text = nil,
-				},
-			},
 			integrations = {
 				dashboard = {
 					enabled = true, -- automatically debounce when dashboard is open
