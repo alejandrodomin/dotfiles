@@ -200,13 +200,16 @@ return {
 						"██║╚██████╗    ██╔╝ ██╗╚██████╗    ██║ ╚████║██║██║  ██╗██║  ██║",
 						"╚═╝ ╚═════╝    ╚═╝  ╚═╝ ╚═════╝    ╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝╚═╝  ╚═╝",
 						"                                                                ",
+						"                                                                ",
 					},
 					center = entries,
 					footer = function()
 						return {
+							"                     ",
 							"☧ In Hoc Signo Vinces",
 						}
 					end,
+					vertical_center = true,
 				},
 			})
 		end,
