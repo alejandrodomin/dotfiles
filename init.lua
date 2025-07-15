@@ -86,16 +86,6 @@ vim.api.nvim_create_autocmd("UILeave", {
 	end,
 })
 
--- UI tabs for the buffers
-vim.opt.termguicolors = true
-require("bufferline").setup({
-	options = {
-		numbers = function(opts)
-			return string.format("%s|%s", opts.id, opts.raise(opts.ordinal))
-		end,
-	},
-})
-
 -- Quality of Life QoL
 require("mini.pairs").setup()
 
