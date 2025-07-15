@@ -87,9 +87,33 @@ return {
 			local project_dir = vim.fn.expand("~/Documents/Workspace/")
 			local max_projects = 5
 
-			local function get_mtime(path)
-				local stat = uv.fs_stat(path)
-				return stat and stat.mtime.sec or 0
+			local function get_mtime(dir)
+				local latest = 0
+				local function scan(path)
+					local handle = uv.fs_scandir(path)
+					if not handle then
+						return
+					end
+
+					while true do
+						local name, type = uv.fs_scandir_next(handle)
+						if not name then
+							break
+						end
+						local full_path = path .. "/" .. name
+						if type == "file" then
+							local stat = uv.fs_stat(full_path)
+							if stat and stat.mtime.sec > latest then
+								latest = stat.mtime.sec
+							end
+						elseif type == "directory" then
+							scan(full_path) -- recurse into subdirectories
+						end
+					end
+				end
+
+				scan(dir)
+				return latest
 			end
 
 			local projects = {}
