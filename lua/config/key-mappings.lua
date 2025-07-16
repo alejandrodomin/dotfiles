@@ -23,3 +23,8 @@ end, { desc = "Run Python file", noremap = true, silent = true })
 
 -- tired of gd only highlighting the instances
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { silent = true })
+
+-- debug mappings
+vim.keymap.set("n", "<leader>dt", require("dap").toggle_breakpoint, { desc = "Toggle breakpoint", silent = true })
+vim.keymap.set("n", "<leader>ds", require("dap").continue, { desc = "Attach session", silent = true })
+vim.keymap.set("n", "<leader>de", require("dap").repl.open, { desc = "Evaluate expression", silent = true })
