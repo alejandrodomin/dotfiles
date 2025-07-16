@@ -27,7 +27,7 @@ vim.diagnostic.config({ virtual_text = true })
 
 -- After setting up mason-lspconfig you may set up servers via lspconfig
 -- require("lspconfig").lua_ls.setup {}
--- require("lspconfig").rust_analyzer.setup {}
+require("lspconfig").rust_analyzer.setup({})
 require("lspconfig").pyright.setup({})
 -- Load the LSP.
 require("lspconfig").mojo.setup({

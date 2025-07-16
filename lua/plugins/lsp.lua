@@ -67,4 +67,7 @@ return {
 			},
 		},
 	},
+	{
+		"mfussenegger/nvim-jdtls",
+	},
 }
