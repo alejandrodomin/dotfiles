@@ -20,3 +20,6 @@ vim.keymap.set("n", "<leader>rp", function()
 		print("Not a Python file.")
 	end
 end, { desc = "Run Python file", noremap = true, silent = true })
+
+-- tired of gd only highlighting the instances
+vim.keymap.set("n", "gd", vim.lsp.buf.definition, { silent = true })
