@@ -73,114 +73,6 @@ return {
 		end,
 	},
 	{
-		"unblevable/quick-scope",
-		lazy = false,
-		init = function()
-			vim.g.qs_highlight_on_keys = { "f", "F", "t", "T" }
-		end,
-	},
-	{
-		"nvimdev/dashboard-nvim",
-		event = "VimEnter",
-		config = function()
-			local uv = vim.loop
-			local project_dir = vim.fn.expand("~/Documents/Workspace/")
-			local max_projects = 5
-
-			local function get_mtime(dir)
-				local latest = 0
-				local function scan(path)
-					local handle = uv.fs_scandir(path)
-					if not handle then
-						return
-					end
-
-					while true do
-						local name, type = uv.fs_scandir_next(handle)
-						if not name then
-							break
-						end
-						local full_path = path .. "/" .. name
-						if type == "file" then
-							local stat = uv.fs_stat(full_path)
-							if stat and stat.mtime.sec > latest then
-								latest = stat.mtime.sec
-							end
-						elseif type == "directory" then
-							scan(full_path) -- recurse into subdirectories
-						end
-					end
-				end
-
-				scan(dir)
-				return latest
-			end
-
-			local projects = {}
-
-			-- Scan all folders under project_dir
-			for name, type in vim.fs.dir(project_dir) do
-				if type == "directory" then
-					local full_path = project_dir .. "/" .. name
-					local mtime = get_mtime(full_path)
-					table.insert(projects, { name = name, path = full_path, mtime = mtime })
-				end
-			end
-
-			-- Sort by modified time, descending
-			table.sort(projects, function(a, b)
-				return a.mtime > b.mtime
-			end)
-
-			-- Keep only top 5
-			local entries = {}
-			for i = 1, math.min(max_projects, #projects) do
-				local project = projects[i]
-				table.insert(entries, {
-					icon = "  ",
-					desc = project.name,
-					action = "cd " .. project.path .. " | Telescope find_files",
-					key = tostring(i),
-				})
-			end
-
-			-- static binding of config project
-			config_proj = { name = ".config/nvim", path = "~/.config/nvim/" }
-			table.insert(entries, {
-				icon = "  ",
-				desc = config_proj.name,
-				action = "cd " .. config_proj.path .. " | Telescope find_files",
-				key = "6",
-			})
-
-			-- Setup dashboard
-			require("dashboard").setup({
-				theme = "doom",
-				config = {
-					header = {
-						"██╗ ██████╗    ██╗  ██╗ ██████╗    ███╗   ██╗██╗██╗  ██╗ █████╗ ",
-						"██║██╔════╝    ╚██╗██╔╝██╔════╝    ████╗  ██║██║██║ ██╔╝██╔══██╗",
-						"██║██║          ╚███╔╝ ██║         ██╔██╗ ██║██║█████╔╝ ███████║",
-						"██║██║          ██╔██╗ ██║         ██║╚██╗██║██║██╔═██╗ ██╔══██║",
-						"██║╚██████╗    ██╔╝ ██╗╚██████╗    ██║ ╚████║██║██║  ██╗██║  ██║",
-						"╚═╝ ╚═════╝    ╚═╝  ╚═╝ ╚═════╝    ╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝╚═╝  ╚═╝",
-						"                                                                ",
-						"                                                                ",
-					},
-					center = entries,
-					footer = function()
-						return {
-							"                     ",
-							"☧ In Hoc Signo Vinces",
-						}
-					end,
-					vertical_center = true,
-				},
-			})
-		end,
-		dependencies = { { "nvim-tree/nvim-web-devicons" } },
-	},
-	{
 		"kdheepak/lazygit.nvim",
 		lazy = true,
 		cmd = {
@@ -212,7 +104,7 @@ return {
 			-- OPTIONAL:
 			--   `nvim-notify` is only needed, if you want to use the notification view.
 			--   If not available, we use `mini` as the fallback
-			"rcarriga/nvim-notify",
+			-- "rcarriga/nvim-notify",
 		},
 		keys = {
 			{ "<leader>sn", "", desc = "+noice" },
@@ -284,20 +176,5 @@ return {
 				mode = { "i", "n", "s" },
 			},
 		},
-	},
-	{
-		"rcarriga/nvim-notify",
-		opts = {
-			stages = "fade",
-			timeout = 3000,
-			max_width = 80,
-			top_down = true,
-			render = "wrapped-compact",
-		},
-		config = function(_, opts)
-			local notify = require("notify")
-			notify.setup(opts)
-			vim.notify = notify -- override default `vim.notify`
-		end,
 	},
 }

@@ -1,6 +1,4 @@
 return {
-	{ "projekt0n/github-nvim-theme", name = "github-theme" },
-	{ "bluz71/vim-moonfly-colors", name = "moonfly", lazy = false, priority = 1000 },
 	{
 		"catppuccin/nvim",
 		flavour = "mocha", -- latte, frappe, macchiato, mocha
@@ -49,32 +47,14 @@ return {
 	},
 	{
 		"shortcuts/no-neck-pain.nvim",
+		version = "*",
 		event = "VeryLazy",
 		opts = {
 			width = 120,
-			autostart = false,
 			autocmds = {
-				enableOnVimEnter = "safe", -- Enable after dashboard or tree closes
-				enableOnTabEnter = false,
-				reloadOnColorSchemeChange = false,
-				skipEnteringNoNeckPainBuffer = false,
-			},
-			integrations = {
-				dashboard = {
-					enabled = true, -- automatically debounce when dashboard is open
-					filetypes = nil, -- fallback handled internally
-				},
+				enableOnVimEnter = "safe",
+				enableOnTabEnter = true,
 			},
 		},
-	},
-	{
-		"zaldih/themery.nvim",
-		lazy = false,
-		config = function()
-			require("themery").setup({
-				themes = { "catppuccin-mocha", "github_dark_dimmed", "elflord", "moonfly" },
-				livePreview = true,
-			})
-		end,
 	},
 }
