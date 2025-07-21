@@ -55,6 +55,11 @@ return {
 				enableOnVimEnter = "safe",
 				enableOnTabEnter = true,
 			},
+			buffers = {
+				right = {
+					enabled = false,
+				},
+			},
 		},
 	},
 }

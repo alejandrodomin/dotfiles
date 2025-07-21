@@ -9,30 +9,8 @@ if vim.g.neovide then
 	require("config.neovide")
 end
 
--- Language Server Setup
-require("mason").setup()
-require("mason-lspconfig").setup({
-	automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
-	ui = {
-		icons = {
-			server_installed = "✓",
-			server_pending = "➜",
-			server_uninstalled = "✗",
-		},
-	},
-})
-require("trouble").setup()
--- inlay hints
-vim.diagnostic.config({ virtual_text = true })
-
--- After setting up mason-lspconfig you may set up servers via lspconfig
--- require("lspconfig").lua_ls.setup {}
-require("lspconfig").rust_analyzer.setup({})
-require("lspconfig").pyright.setup({})
--- Load the LSP.
-require("lspconfig").mojo.setup({
-	cmd = { "bash", "-c", "pixi run mojo-lsp-server" },
-})
+-- lsp configs
+require("config.lsp")
 
 -- Syntax
 require("nvim-treesitter.configs").setup({
@@ -52,6 +30,7 @@ vim.opt.softtabstop = 4 -- Number of spaces a <Tab> feels like when editing
 vim.opt.shiftwidth = 4 -- Number of spaces used for each step of (auto)indent
 vim.opt.expandtab = true -- Use spaces instead of actual tab characters
 vim.opt.smartindent = true -- Auto-indent new lines
+vim.opt.wrap = true -- auto wrap all
 
 -- Theme
 if vim.env.DISPLAY == nil or vim.env.DISPLAY == "" then
@@ -68,6 +47,7 @@ require("telescope").setup()
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader><leader>", builtin.find_files, { desc = "Telescope find files" })
 vim.keymap.set("n", "<leader>/", builtin.live_grep, { desc = "Telescope live grep" })
+require("config.harpoon")
 
 -- Fill out terminal
 -- source: https://github.com/neovim/neovim/issues/16572
