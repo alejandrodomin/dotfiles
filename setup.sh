@@ -14,7 +14,7 @@ install_all() {
 
     "$GUM" log --time TimeOnly --structured --level info "Tools installed by default: ghostty zsh oh-my-zsh neovim ripgrep fzf lazygit lazydocker"
     # java and mojo options not supported yet
-    opt_string=$("$GUM" choose --no-limit --header "Pick extra tools to Install:" ${c_options[@]})
+    opt_string=$("$GUM" choose --no-limit --header "Pick Development Suite to Install:" "C/C++ Tools" "Java Tools" "Mojo Tools")
     if [[ $? -gt 0 || -z "$opt_string" ]]; then
         return $WARNING
     fi
@@ -23,11 +23,13 @@ install_all() {
 
     for opt in "${options[@]}"; do
         case "$opt" in
-        "bear")
+        "C/C++ Tools")
             i_bear
-            ;;
-        "valgrind")
             i_valgrind
+            ;;
+        "Java Tools")
+            ;;
+        "Mojo Tools")
             ;;
         *)
             "$GUM" log --time TimeOnly --structured --level warn "Unknown option $opt"
