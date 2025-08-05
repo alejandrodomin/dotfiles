@@ -14,7 +14,7 @@ install_all() {
 
     "$GUM" log --time TimeOnly --structured --level info "Tools installed by default: ghostty zsh oh-my-zsh neovim ripgrep fzf lazygit lazydocker"
     # java and mojo options not supported yet
-    opt_string=$("$GUM" choose --no-limit --header "Pick Development Suite to Install:" "C/C++ Tools" "Java Tools" "Mojo Tools")
+    opt_string=$("$GUM" choose --no-limit --header "Pick Development Suite to Install:" "C/C++ (bear, valgrind)" "Java  (eclipse.jdt.ls)" "Mojo  (pixi)")
     if [[ $? -gt 0 || -z "$opt_string" ]]; then
         return $WARNING
     fi
@@ -23,16 +23,15 @@ install_all() {
 
     for opt in "${options[@]}"; do
         case "$opt" in
-        "C/C++ Tools")
+        "C/C++")
             i_bear
             i_valgrind
             ;;
-        "Java Tools")
+        "Java")
+            i_eclipse
             ;;
-        "Mojo Tools")
-            ;;
-        *)
-            "$GUM" log --time TimeOnly --structured --level warn "Unknown option $opt"
+        "Mojo")
+            i_pixi
             ;;
         esac
     done
@@ -45,7 +44,7 @@ i_bear() {
         return $SUCCESS
     fi
 
-    "$GUM" spin --spinner dot --title "Installing bear ..." -- bash -c "/home/linuxbrew/.linuxbrew/bin/brew install --quiet bear"
+    "$GUM" spin --spinner dot --title "Installing bear..." -- bash -c "/home/linuxbrew/.linuxbrew/bin/brew install --quiet bear"
     if [[ $? -gt 0 ]]; then
         "$GUM" log --time TimeOnly --structured --level error "Error installing bear"
         exit
@@ -55,13 +54,36 @@ i_bear() {
 }
 
 i_valgrind() {
+    validation=$(apt list --installed valgrind 2>/dev/null)
+    if [[ $validation == *"installed"* ]]; then
+        "$GUM" log --time TimeOnly --structured --level info "Valgrind already installed"
+        return $SUCCESS
+    fi
+
     sudo echo -n
-    "$GUM" spin --spinner dot --title "Installing valgrind ..." -- sudo bash -c "apt-get install -y valgrind"
+    "$GUM" spin --spinner dot --title "Installing valgrind..." -- sudo bash -c "apt-get install -y valgrind"
     if [[ $? -gt 0 ]]; then
         "$GUM" log --time TimeOnly --structured --level error "Error installing valgrind"
         exit
     else
         "$GUM" log --time TimeOnly --structured --level info "Valgrind installed"
+    fi
+}
+
+i_pixi() {
+    validation=$(pixi --version)
+    if [[ $validation == *"pixi"* ]]; then
+        "$GUM" log --time TimeOnly --structured --level info "Pixi already installed"
+        return $SUCCESS
+    fi
+
+    sudo echo -n
+    "$GUM" spin --spinner dot --title "Installing pixi..." -- sudo bash -c "curl -fsSL https://pixi.sh/install.sh | sh >/dev/null 2>&1"
+    if [[ $? -gt 0 ]]; then
+        "$GUM" log --time TimeOnly --structured --level error "Error installing pixi"
+        exit
+    else
+        "$GUM" log --time TimeOnly --structured --level info "Pixi installed"
     fi
 }
 # ------- ---

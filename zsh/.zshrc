@@ -109,3 +109,5 @@ source $ZSH/oh-my-zsh.sh
 
 # brew path
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# pixi path
+export PATH="$HOME/.pixi/bin:$PATH"
