@@ -5,7 +5,7 @@ return {
 		lazy = true,
 		name = "catppuccin",
 		opts = {
-            transparent_background = true,
+			transparent_background = true,
 			integrations = {
 				aerial = true,
 				alpha = true,
@@ -59,6 +59,12 @@ return {
 			buffers = {
 				right = {
 					enabled = false,
+				},
+			},
+			integrations = {
+				NeoTree = {
+					position = "left",
+					reopen = true,
 				},
 			},
 		},
