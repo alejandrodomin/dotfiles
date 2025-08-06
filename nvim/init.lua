@@ -44,6 +44,15 @@ vim.opt.relativenumber = true
 
 -- File search
 require("telescope").setup()
+vim.api.nvim_exec(
+	[[
+  hi TelescopeNormal ctermbg=none guibg=none
+  hi TelescopeBorder ctermbg=none guibg=none
+  hi TelescopeTitle ctermbg=none guibg=none
+]],
+	false
+)
+
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader><leader>", builtin.find_files, { desc = "Telescope find files" })
 vim.keymap.set("n", "<leader>/", builtin.live_grep, { desc = "Telescope live grep" })

@@ -109,5 +109,6 @@ source $ZSH/oh-my-zsh.sh
 
 # brew path
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-# pixi path
+# pixi
 export PATH="$HOME/.pixi/bin:$PATH"
+eval "$(pixi completion --shell zsh)"

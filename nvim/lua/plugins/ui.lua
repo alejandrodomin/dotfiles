@@ -66,6 +66,26 @@ return {
 		config = function(_, opts)
 			local wk = require("which-key")
 			wk.setup(opts)
+
+			vim.schedule(function()
+				vim.api.nvim_exec("doautocmd UIEnter WhichKeyLoaded", false)
+			end)
+
+			vim.api.nvim_create_autocmd("UIEnter", {
+				pattern = "WhichKeyLoaded",
+				callback = function()
+					vim.cmd("hi WhichKeyNormal ctermbg=none guibg=none")
+					vim.cmd("hi WhichKeyBorder ctermbg=none guibg=none")
+					vim.cmd("hi WhichKeyTitle ctermbg=none guibg=none")
+					vim.cmd("hi WhichKeyFloat ctermbg=none guibg=none")
+					vim.cmd("hi WhichKeyGroup ctermbg=none guibg=none")
+					vim.cmd("hi WhichKeySeperator ctermbg=none guibg=none")
+					vim.cmd("hi WhichKeySeparator ctermbg=none guibg=none")
+					vim.cmd("hi WhichKeyValue ctermbg=none guibg=none")
+					vim.cmd("hi WhichKeyDesc ctermbg=none guibg=none")
+				end,
+			})
+
 			if not vim.tbl_isempty(opts.defaults) then
 				LazyVim.warn("which-key: opts.defaults is deprecated. Please use opts.spec instead.")
 				wk.register(opts.defaults)

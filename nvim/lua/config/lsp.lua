@@ -19,6 +19,8 @@ vim.diagnostic.config({ virtual_text = true })
 require("lspconfig").rust_analyzer.setup({})
 require("lspconfig").pyright.setup({})
 -- Load the LSP.
+local shell = vim.fn.getenv("SHELL"):match("bash") and "bash" or "zsh"
+
 require("lspconfig").mojo.setup({
-	cmd = { "bash", "-c", "pixi run mojo-lsp-server" },
+	cmd = { shell, "-c", "pixi run mojo-lsp-server" },
 })
