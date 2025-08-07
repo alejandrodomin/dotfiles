@@ -61,12 +61,6 @@ return {
 					enabled = false,
 				},
 			},
-			integrations = {
-				NeoTree = {
-					position = "left",
-					reopen = true,
-				},
-			},
 		},
 	},
 }
