@@ -1,5 +1,18 @@
-call plug#begin()
+" call plug" begin()
+" 
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" 
+" call plug#end()
 
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+set wrap
+set relativenumber
+set number
 
-call plug#end()
+colorscheme elflord
+
+set tabstop=2
+set shiftwidth=2
+set expandtab
+
+syntax on
+filetype indent plugin on
